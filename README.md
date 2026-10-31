@@ -14,4 +14,6 @@ npm run dev
 Сайт публикуется бесплатно через GitHub Pages. Workflow собирает Astro-проект,
 исключает старые серверные файлы и размещает содержимое `dist`.
 
-Основной адрес: `https://www.alexpravo.ru`.
+Защищённая копия: `https://stella2025-max.github.io`.
+
+Домен `alexpravo.ru` остаётся на Beget и к GitHub Pages не подключается.

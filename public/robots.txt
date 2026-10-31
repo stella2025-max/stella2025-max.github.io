@@ -17,4 +17,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://www.alexpravo.ru/sitemap.xml
+Sitemap: https://stella2025-max.github.io/sitemap.xml
