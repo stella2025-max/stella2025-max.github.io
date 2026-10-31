@@ -1,0 +1,22 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  type Article = CollectionEntry<"articles">;
+  const articles = await getCollection("articles", ({ data }: Article) => !data.draft);
+  return articles.map((article: Article) => ({
+    params: { slug: article.id.replace(/\.(md|mdx)$/, "") },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+---
+
+<BaseLayout title={`${article.data.title} — «А‑ЛЕКС»`} description={article.data.description}>
+  <section class="page-hero"><div class="shell"><p class="eyebrow">{article.data.practice} · {article.data.publishedAt.toLocaleDateString("ru-RU")}</p><h1>{article.data.title}</h1><p>{article.data.description}</p></div></section>
+  <section class="section"><div class="shell content-grid"><article class="prose"><Content /></article><aside class="sidebar-card"><h3>Ваша ситуация похожа?</h3><p>Общий материал не заменяет анализ ваших обстоятельств.</p><a class="button" href="/#consultation">Задать вопрос</a></aside></div></section>
+</BaseLayout>

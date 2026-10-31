@@ -1,0 +1,137 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { practices } from "../data/practices";
+
+type Article = CollectionEntry<"articles">;
+const articles = (await getCollection("articles", ({ data }: Article) => !data.draft))
+  .sort((a: Article, b: Article) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 3);
+---
+
+<BaseLayout title="А‑ЛЕКС — юридическая компания в Москве">
+  <section class="hero" id="top">
+    <div class="shell hero-content">
+      <p class="eyebrow">Юридическая компания</p>
+      <h1>Право, подкреплённое системой</h1>
+      <p class="hero-lead">Сопровождаем компании, предпринимателей и частных клиентов в сложных вопросах. До начала работы фиксируем позицию, сроки и риски.</p>
+      <div class="hero-actions">
+        <a class="button" href="#consultation">Получить бесплатную консультацию</a>
+        <a class="button button-outline" href="tel:+79099708373">Позвонить</a>
+      </div>
+      <div class="hero-note">
+        <span>Москва и Московская область</span>
+        <span>Работаем по всей России</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="trust-strip">
+    <div class="shell trust-grid">
+      <div class="trust-item"><strong>Письменная стратегия</strong><span>Фиксируем порядок действий до начала работы</span></div>
+      <div class="trust-item"><strong>Прямая связь</strong><span>Без безымянных исполнителей и лишних звеньев</span></div>
+      <div class="trust-item"><strong>Понятная отчётность</strong><span>Объясняем статус дела без лишнего жаргона</span></div>
+    </div>
+  </div>
+
+  <section class="section" id="about">
+    <div class="shell about-grid">
+      <div class="about-image"><img src="/images/office-detail.jpg" alt="Интерьер юридической компании «А‑ЛЕКС»" loading="lazy" /></div>
+      <div class="about-copy">
+        <p class="eyebrow">О компании</p>
+        <h2>Системный подход вместо шаблонных решений</h2>
+        <p>Мы строим работу вокруг задачи клиента. Сначала оцениваем факты и документы, затем формулируем цель, варианты действий и риски.</p>
+        <div class="principles">
+          <div class="principle"><b>01</b><p>Профильная экспертиза по каждому направлению</p></div>
+          <div class="principle"><b>02</b><p>Понятные сроки и контрольные точки</p></div>
+          <div class="principle"><b>03</b><p>Позиция, основанная на фактах и документах</p></div>
+          <div class="principle"><b>04</b><p>Регулярный статус по делу</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" id="practices">
+    <div class="shell">
+      <div class="section-head">
+        <div><p class="eyebrow">Практики</p><h2>Семь направлений работы</h2></div>
+        <p>Выберите близкое направление. Если ситуация затрагивает несколько областей, мы определим состав команды после первичного разбора.</p>
+      </div>
+      <div class="practice-grid">
+        {practices.map((practice, index) => (
+          <a class="practice-card" href={`/practices/${practice.slug}`}>
+            <span class="practice-number">0{index + 1} / 07</span>
+            <h3>{practice.title}</h3>
+            <p>{practice.summary}</p>
+            <span class="text-link">Подробнее</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark consultation" id="consultation">
+    <div class="shell consultation-grid">
+      <div class="consultation-copy">
+        <p class="eyebrow">Бесплатная консультация</p>
+        <h2>Опишите ситуацию</h2>
+        <p>Заявка поступит нам напрямую. Юрист изучит описание и свяжется с вами в выбранное время.</p>
+        <ul class="consult-points">
+          <li>Без загрузки документов</li>
+          <li>Вы сами выбираете удобное время звонка</li>
+          <li>Первичный ответ не заменяет полный анализ документов</li>
+        </ul>
+      </div>
+      <div class="form-card yandex-form-card">
+        <script is:inline src="https://forms.yandex.ru/_static/embed.js"></script>
+        <iframe
+          class="yandex-form-frame"
+          src="https://forms.yandex.ru/u/6ae630fc4a052df7628c5047?iframe=1"
+          name="ya-form-6ae630fc4a052df7628c5047"
+          title="Заявка на консультацию — А-ЛЕКС"
+          loading="lazy"
+        ></iframe>
+        <p class="yandex-form-fallback">
+          Если форма не отображается, <a href="https://forms.yandex.ru/u/6ae630fc4a052df7628c5047" target="_blank" rel="noreferrer">откройте её в отдельном окне</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="shell experts-grid">
+      <div class="experts-copy">
+        <p class="eyebrow">Специалисты</p>
+        <h2>Опыт в сложных и нестандартных делах</h2>
+        <p>Над задачами работают специалисты с практическим опытом в профильных областях. Состав команды определяется после первичного анализа ситуации.</p>
+      </div>
+      <div class="expert-values">
+        <div class="expert-value"><b>01</b><span>Профильная специализация</span></div>
+        <div class="expert-value"><b>02</b><span>Команда под задачу</span></div>
+        <div class="expert-value"><b>03</b><span>Проверяемая позиция</span></div>
+        <div class="expert-value"><b>04</b><span>Личная ответственность за результат</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="shell">
+      <div class="section-head"><div><p class="eyebrow">Как мы работаем</p><h2>От заявки до результата</h2></div><p>Каждый этап имеет понятную цель. О состоянии дела вы узнаёте по согласованному графику.</p></div>
+      <div class="process-grid">
+        <div class="process-step"><h3>Заявка и звонок</h3><p>Вы описываете ситуацию, мы уточняем задачу.</p></div>
+        <div class="process-step"><h3>Анализ и стратегия</h3><p>Изучаем материалы и предлагаем варианты действий.</p></div>
+        <div class="process-step"><h3>Сопровождение</h3><p>Движемся по согласованному плану и сообщаем о статусе.</p></div>
+        <div class="process-step"><h3>Результат и рекомендации</h3><p>Фиксируем итог и порядок следующих действий.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="articles">
+    <div class="shell">
+      <div class="section-head"><div><p class="eyebrow">Материалы</p><h2>Разборы правовых ситуаций</h2></div><p>Мы будем публиковать материалы после редакторской и юридической проверки.</p></div>
+      {articles.length > 0 ? <div class="articles-grid">{articles.map((article: Article) => <a class="article-card" href={`/articles/${article.id.replace(/\.(md|mdx)$/, "")}`}><span class="article-meta">{article.data.practice} · {article.data.publishedAt.toLocaleDateString("ru-RU")}</span><h3>{article.data.title}</h3><p>{article.data.description}</p><span class="text-link">Читать</span></a>)}</div> : <div class="article-card"><span class="article-meta">Редакция</span><h3>Первые материалы готовятся</h3><p>На сайте появятся проверенные разборы по вопросам, с которыми клиенты обращаются на практике.</p></div>}
+    </div>
+  </section>
+
+</BaseLayout>

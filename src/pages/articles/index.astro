@@ -1,0 +1,16 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+type Article = CollectionEntry<"articles">;
+const articles = (await getCollection("articles", ({ data }: Article) => !data.draft))
+  .sort((a: Article, b: Article) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+---
+
+<BaseLayout title="Материалы — «А‑ЛЕКС»" description="Практические разборы правовых ситуаций от юридической компании «А‑ЛЕКС».">
+  <section class="page-hero"><div class="shell"><p class="eyebrow">Знания</p><h1>Разборы правовых ситуаций</h1><p>Материалы публикуются после редакторской и юридической проверки.</p></div></section>
+  <section class="section"><div class="shell">
+    {articles.length ? <div class="articles-grid">{articles.map((article: Article) => <a class="article-card" href={`/articles/${article.id.replace(/\.(md|mdx)$/, "")}`}><span class="article-meta">{article.data.practice} · {article.data.publishedAt.toLocaleDateString("ru-RU")}</span><h3>{article.data.title}</h3><p>{article.data.description}</p><span class="text-link">Читать</span></a>)}</div> : <div class="article-card"><span class="article-meta">Редакция</span><h3>Первые материалы готовятся</h3><p>Мы не публикуем черновики без проверки.</p></div>}
+  </div></section>
+</BaseLayout>

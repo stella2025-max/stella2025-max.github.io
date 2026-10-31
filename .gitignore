@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+.astro/
+__pycache__/
+.DS_Store
+.autopilot/serve.*
+AGENTS.md
+*.docx
+build_management_brief.py
+netlify.toml
+public/admin/
+public/submit.php
